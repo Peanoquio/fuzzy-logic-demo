@@ -1,0 +1,184 @@
+/******************************************************************************/
+/*!
+\file dualParaboloidGenerationShader.v.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 22/02/2012
+\brief
+This is the Cg vertex shader for generating the dual paraboloid map
+Command Line Compilation: 
+cgc dualParaboloidGenerationShader.v.cg -entry main -profile gp4vp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+struct vertexShaderInput
+{
+	/*
+	float3 position : POSITION;
+	float4 color : COLOR0;
+	float2 texCoord : TEXCOORD0;
+	float4 projTexCoord : TEXCOORD1;
+
+	float3 normal : NORMAL;
+	*/
+
+	//for ATI
+	float3 position : ATTR0;
+	float4 color : ATTR3;
+	float2 texCoord : ATTR8;
+	float4 projTexCoord : ATTR9;
+	float3 normal : ATTR2;
+	float3 objPosition : ATTR10;
+};
+
+struct vertexShaderOutput
+{
+	float4 position : POSITION;
+	float4 color : COLOR0;
+	float2 texCoord : TEXCOORD0;
+	float4 projTexCoord : TEXCOORD1;
+	float3 normal : TEXCOORD2;
+	float3 objPosition : TEXCOORD3;
+	float clipDepth : TEXCOORD4;
+	float depth : TEXCOORD5;
+};
+
+
+/****************************************************************************************/
+/*!
+vertex shader main entry point
+
+\param IN
+	the vertex shader input
+	
+\param modelViewMatrix
+	concatenated model-view matrix
+	uniform - shader is going to send this from the application
+
+\param mvpMatrix
+	concatenated model-view-projection matrix
+	uniform - shader is going to send this from the application
+
+\param textureMatrix
+	concatenated texture generation matrix
+	uniform - shader is going to send this from the application
+
+\param nearPlane
+	the near plane
+\param farPlane
+	the far plane
+
+\param faceValue
+	faceValue: 0 is front, 1 is back
+	
+\return vertexShaderOutput
+	the vertex shader output
+
+*/
+/****************************************************************************************/
+vertexShaderOutput main ( vertexShaderInput IN,
+	uniform float4x4 modelViewMatrix, uniform float4x4 modelViewITMatrix, uniform float4x4 mvpMatrix, uniform float4x4 textureMatrix, 
+	uniform float nearPlane, uniform float farPlane, uniform int faceValue )
+{ 
+	vertexShaderOutput OUT;	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//use the model-view-projection matrix for transforming the vertex position	
+	//OUT.position = mul( mvpMatrix, float4( IN.position, 1 ) ); 	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//transform the normal in view space for the fragment shader
+	//should use inverse transpose of the model view matrix if model matrix has scale
+	float3 viewSpaceNormal = mul( (float3x3)modelViewITMatrix, IN.normal );
+	OUT.normal = viewSpaceNormal;	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/*
+	What we are basically going to do is, in the vertex shader, place each vertex ourselves that has been distorted by the paraboloid. 
+	First we need to transform the vertex by the view matrix of the paraboloid 'camera'. 
+	We don't apply the projection matrix since we're going to place the point ourselves
+	*/
+	float4 viewSpacePos = mul( modelViewMatrix, float4( IN.position, 1 ) ); 
+
+	/*
+	The first operation needed is to transform the incoming vertices with the combined world, view,
+	and projection matrix object space to post projection space and divide by the w coordinate to
+	produce a homogenous position in camera space.
+	*/
+	viewSpacePos = viewSpacePos;// / viewSpacePos.w;		// divide by w to normalize
+	OUT.objPosition = viewSpacePos.xyz;		
+
+	/*
+	The only change necessary between rendering the front map and the back map is to multiply the
+	z coordinate by –1 before dividing by the distance to the vertex. Also, back face culling is
+	disabled in the sample file so that the same effect can be used on both maps (by negating z the
+	triangle winding would be reversed). This could also be done with two different techniques, but
+	I thought it would be simpler this way.
+	*/
+	viewSpacePos.z *= faceValue;
+
+	/*
+	To find the x and y coordinates of the map that we should store this vertex at, we will need to
+	have a vector from the point P to the transformed vertex. In the paraboloid basis (set by the view
+	matrix earlier) point P is actually located at (0,0,0) so finding a vector from P to the vertex is as
+	simple as dividing P by the length of the vector from (0,0,0) to P.
+	*/
+	const float3 EYEPOS_VIEWSPACE = float3( 0.0F, 0.0F, 0.0F );
+	float3 viewSpaceIncidentVec = viewSpacePos.xyz - EYEPOS_VIEWSPACE;
+	float viewSpaceIncidentVecLength = length( viewSpaceIncidentVec );
+	//float3 viewSpaceNormalizedIncidentVec = normalize( viewSpaceIncidentVec );
+	float3 viewSpaceNormalizedIncidentVec = viewSpaceIncidentVec / viewSpaceIncidentVecLength;
+
+	// save for clipping 	
+ 	 OUT.clipDepth = viewSpaceNormalizedIncidentVec.z;
+
+	/*
+	The resulting vector represents a ray from the vertex toward point P. Now we must find the x
+	and y coordinates of the point where this ray intersects the paraboloid surface. From the earlier
+	findings, the normal vector at any point on the paraboloid surface can be found by adding the
+	incident and reflected vectors, and then dividing that result by its z component. We know that
+	the reflected vector is always (0,0,1) due to the properties of the paraboloid. So to
+	compute the normal vector, we only have to add 1 to the z component and then divide the x and
+	y components by this new z value.
+	*/	
+	float3 paraboloidNormal;
+	const float Z_plus_ONE = viewSpaceNormalizedIncidentVec.z + 1;
+	paraboloidNormal.x = viewSpaceNormalizedIncidentVec.x / Z_plus_ONE;
+	paraboloidNormal.y = viewSpaceNormalizedIncidentVec.y / Z_plus_ONE;
+	
+	/*
+	This x and y coordinates represent the positions in the output texture that this vertex maps to in
+	the paraboloid parameterization. To have proper depth testing, I have set the z coordinate back
+	to the distance from P to the vertex in world space scaled by the viewing distance. In addition,
+	the w component is set to 1 to finalize the x, y, and z values output by the vertex shader.
+	*/
+	OUT.position.x = paraboloidNormal.x;
+	OUT.position.y = paraboloidNormal.y;
+	OUT.position.z = ( viewSpaceIncidentVecLength - nearPlane ) / ( farPlane - nearPlane );
+	OUT.position.w = 1;
+
+	//store the depth
+	OUT.depth = OUT.position.z;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//compute the texture coordinates for projective texturing	
+	OUT.projTexCoord = mul( textureMatrix, float4( IN.position , 1 ) );
+
+	//standard texturing
+	OUT.texCoord = IN.texCoord;
+
+	//color
+	OUT.color = IN.color;	
+	
+	return OUT;
+}

@@ -1,0 +1,273 @@
+/******************************************************************************/
+/*!
+\file lightingUtilityShader.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 12/02/2012
+\brief
+This is the Cg shader that contains reusable code for lighting
+Command Line Compilation: 
+cgc lightingUtilityShader.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+struct Material
+{
+	float3 Ke; //emissive light
+	float3 Ka; //ambient light
+	float3 Kd; //diffuse light
+	float3 Ks; //specular light
+	float shininess;
+};
+
+
+struct Light
+{
+	int lightType;
+	int lightAttenuationFlag;
+
+	float3 lightColor;
+	float3 lightPosition;
+	float3 lightDirection;
+
+	//attenuation coefficient values
+	float Kc; //constant
+	float Kl; //linear
+	float Kq; //quadratic
+
+	//for dual cone spotlight
+	float spotLightInnerCone;
+	float spotLightOuterCone;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes the whether the vertex will be lighted if it falls within the cone of the spot light.
+It also controls the intensity of the spot light on the vertex depending on how close it is to the inner cone.
+
+\param light
+	the light values
+\param P
+	the vertex position of the object
+
+\return float4
+	the computed spot light effect value
+*/
+/****************************************************************************************/
+float DualConeSpotlight( float3 P, Light light )
+{
+	//convert the angle to radians then get its cosine value
+	//float cosOuterCone = cos( radians( light.spotLightOuterCone ) ); 
+	//float cosInnerCone = cos( radians( light.spotLightInnerCone ) );
+	float cosOuterCone = light.spotLightOuterCone; 
+	float cosInnerCone = light.spotLightInnerCone;
+
+	//get the vector from the vertex to the light
+	float3 V = normalize( P - light.lightPosition );
+	//get the cosine angle between light direction and the vector from the vertex to the light
+	float cosDirection = dot( V, light.lightDirection );
+ 
+	/*
+	The Smoothstep function interpolates between two values, using a smooth polynomial:
+	Returns 0 if X < Min ;
+	Returns 1 if X >= Max ;
+	Otherwise, returns a smooth Hermite interpolation between 0 and 1 given by:
+	-2 * ((X – Min)/(Max – Min))3 + 3 * ((X – Min)/(Max – Min))2
+	*/
+	return smoothstep( cosOuterCone, cosInnerCone, cosDirection ); 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes the attenuation
+
+http://www.ogre3d.org/tikiwiki/-Point+Light+Attenuation
+Range Constant Linear Quadratic
+3250, 1.0, 0.0014, 0.000007
+600, 1.0, 0.007, 0.0002
+325, 1.0, 0.014, 0.0007
+200, 1.0, 0.022, 0.0019
+160, 1.0, 0.027, 0.0028
+100, 1.0, 0.045, 0.0075
+65, 1.0, 0.07, 0.017
+50, 1.0, 0.09, 0.032
+32, 1.0, 0.14, 0.07
+20, 1.0, 0.22, 0.20
+13, 1.0, 0.35, 0.44
+7, 1.0, 0.7, 1.8
+
+\param light
+	the light values
+\param position
+	the vertex position of the object
+
+\return float4
+	the computed attenuation value
+*/
+/****************************************************************************************/
+float ComputeAttenuation( Light light, float3 position )
+{
+	float distanceVal = 0;
+
+	/*
+	//validate if the light direction is provided ( for directional light )
+	if ( light.lightDirection.x > 0 || light.lightDirection.y > 0 || light.lightDirection.z > 0 )
+	{
+		//the light direction vector will be the distance
+		distanceVal = length( light.lightDirection );
+	}
+	else
+	{
+	*/
+		//get the distance between the vertex and the light source
+		distanceVal = distance( position, light.lightPosition );
+	//}
+
+	//compute for the attenuation value
+	float attenuationVal = 1 / ( light.Kc + ( light.Kl * distanceVal ) + ( light.Kq * distanceVal * distanceVal ) );
+	//keep the values between 0 and 1 range
+	attenuationVal = min( attenuationVal, 1.0 );
+
+	return attenuationVal;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes the material lighting
+
+\param material
+	the material values for lighting
+\param light
+	the light values
+\param position
+	the vertex position of the object
+\param normal
+	the vertex normal of the object
+\param globalAmbient
+	the global ambient light value
+\param eyePosition
+	the position of the eye
+
+\return float4
+	the computed lighting value
+*/
+/****************************************************************************************/
+float4 ComputeLighting( Material material, Light light,
+	float3 position, float3 normal, float3 globalAmbient, float3 eyePosition )
+{
+	/*
+	terms:
+	N is the normalized surface normal
+	L is the normalized vector toward the light source
+	P is the point being shaded
+	*/
+
+	//store the position
+    float3 P = position.xyz;
+	//normalize the normal
+    float3 N = normalize( normal );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	float attenuationVal = 1;
+	//if the attenuation is enabled
+	if ( light.lightAttenuationFlag == 1 )
+	{
+		//for point light and spot light
+		if ( light.lightType == 2 || light.lightType == 3 )
+		{
+			attenuationVal = ComputeAttenuation( light, P );
+		}	
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //compute for the emissive light
+	float3 emissive = material.Ke;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //compute for the ambient light
+	float3 ambient = material.Ka * globalAmbient;
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//compute for the diffuse light
+	//L is the normalized vector toward the light source
+	float3 L;
+	//validate if the light direction is provided ( for directional light )
+	//if ( light.lightDirection.x == 0 && light.lightDirection.y == 0 && light.lightDirection.z == 0 )
+	if ( light.lightType == 1 )
+	{
+		//negate the light direction so that it becomes the vector towards the light source
+		L = -( normalize( light.lightDirection ) );
+	}
+	else
+	{
+		//difference between the light position and the vertex position of the object
+		L = normalize( light.lightPosition - P );
+	}
+	//only normals facing the light will be lit
+	//facing is 1 if N · L is greater than 0, and 0 otherwise
+    float diffuseLight = max( dot( N, L ), 0 );
+	//lightColor is the color of the incoming diffuse light
+    float3 diffuse = material.Kd * light.lightColor * diffuseLight * attenuationVal;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //compute for the specular light
+	//V is the normalized vector toward the viewpoint
+	//since P and the eye position is already in the view space
+	//float3 V = normalize( eyePosition - P );
+	float3 V = normalize( - P );
+	//H is the normalized vector that is halfway between V and L
+    float3 H = normalize( L + V );
+	//facing is 1 if N · L is greater than 0, and 0 otherwise
+    float specularLight = 0;
+    if ( diffuseLight > 0 )
+	{ 
+		//the smaller the angle between N and H ( the greater the dot product ), the narrower the specular highlight
+		specularLight = pow( max( dot( N, H ), 0 ), material.shininess );
+	}
+	//lightColor is the color of the incoming specular light
+    float3 specular = material.Ks * light.lightColor * specularLight * attenuationVal;
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//compute for the spot light effect
+	float spotLightEffect = 1;
+	//for spot light
+	//if ( light.spotLightInnerCone > 0 && light.spotLightOuterCone > 0 )
+	if ( light.lightType == 3 )	
+	{
+		spotLightEffect = DualConeSpotlight( P, light );
+		diffuse *= spotLightEffect;
+		specular *= spotLightEffect;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//compute the light and return the color
+	float4 lighting;
+	lighting.xyz = emissive + ambient + diffuse + specular;
+    lighting.w = 1;
+	return lighting;
+}

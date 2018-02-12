@@ -1,0 +1,163 @@
+/******************************************************************************/
+/*!
+\file reflectiveShader.f.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 25/01/2012
+\brief
+This is the Cg reflective fragment shader
+Command Line Compilation: 
+cgc reflectiveShader.f.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+#include "lightingUtilityShader.cg";
+#include "generalUtilityShader.cg";
+#include "reflectionUtilityShader.cg";
+
+
+struct fragmentShaderInput
+{
+    float4 position : POSITION;
+    float4 color : COLOR0;
+    float2 texCoord : TEXCOORD0;
+    float4 projTexCoord : TEXCOORD1;
+    float3 normal : TEXCOORD2;
+	float3 objPosition : TEXCOORD3;
+	float3 reflectionVec : TEXCOORD4;
+};
+
+
+struct fragmentShaderOutput
+{
+    float4 color : COLOR0;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+fragment shader main entry point
+
+\param IN
+	the fragment shader input	
+\param OUT
+	the fragment shader output	
+
+\param textureFlag
+	the texture id
+
+\param texId
+	the texture Id
+\param projTexId
+	the projection texture Id
+\param cubeMapTexId
+	the cube map texture id
+
+\param transmittance
+	the transmittance value
+
+\param globalAmbient
+	the global ambient value
+\param lightColor
+	the color of the light
+\param lightPosition
+	the position of the light
+\param eyePosition
+	the position of the eye
+
+\param Ke
+	the emissive value
+\param Ka
+	the ambient value
+\param Kd
+	the diffuse value
+\param Ks
+	the specular value
+\param shininess
+	the shininess value
+
+\param constantCoeff
+	the constant attenuation coefficient
+\param linearCoeff
+	the linear attenuation coefficient
+\param quadraticCoeff
+	the quadratic attenuation coefficient
+
+\param lightType
+	the type of lighting
+\param lightAttenuationFlag
+	flag to enable/disable attenuation
+
+*/
+/****************************************************************************************/
+void main( fragmentShaderInput IN, out fragmentShaderOutput OUT, 
+			uniform int textureFlag, uniform sampler2D texId, 
+			uniform sampler2D projTexId,	
+			uniform samplerCUBE cubeMapTexId,
+			 uniform float reflectivity,		
+			uniform float3 globalAmbient, uniform float3 lightColor, 
+			uniform float3 lightDirection, uniform float3 lightPosition, uniform float3 eyePosition, 
+			uniform float3 Ke, uniform float3 Ka, uniform float3 Kd, uniform float3 Ks, uniform float shininess,
+			uniform float constantCoeff, uniform float linearCoeff, uniform float quadraticCoeff, 
+			uniform float spotLightInnerCone, uniform float spotLightOuterCone, 
+			uniform int lightType, uniform int lightAttenuationFlag )
+{
+    //compute for the object texturing
+	float4 texVal = tex2D( texId, IN.texCoord );
+
+    //compute for the projective texturing value
+	float4 projTexVal = tex2Dproj( projTexId, IN.projTexCoord );	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//compute for the lighting
+	Material material;
+	material.Ke = Ke;
+	material.Ka = Ka;
+	material.Kd = Kd;
+	material.Ks = Ks;
+	material.shininess = shininess;
+
+	Light light;
+	light.lightType = lightType;
+	light.lightAttenuationFlag = lightAttenuationFlag;
+	light.lightColor = lightColor;
+	light.lightPosition = lightPosition;
+	light.lightDirection = lightDirection;
+	light.Kc = constantCoeff;
+	light.Kl = linearCoeff;
+	light.Kq = quadraticCoeff;
+	light.spotLightInnerCone = spotLightInnerCone;
+	light.spotLightOuterCone = spotLightOuterCone;
+
+	//pass the object position and normal for computation
+	float4 lighting = ComputeLighting( material, light, IN.objPosition, IN.normal, globalAmbient, eyePosition );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	float4 decalColor = IN.color;
+
+	//float4 processedColor = ProcessTextureColor( decalColor, texVal, projTexVal, textureFlag );
+	float4 processedColor = ProcessTextureColor( texVal, texVal, projTexVal );
+	//processedColor = ProcessTextureColor( float4( 0, 0, 0, 0 ), texVal, projTexVal );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	processedColor = ComputeInterpolatedReflectedColor( cubeMapTexId, IN.reflectionVec, reflectivity, processedColor );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//apply lighting
+	processedColor = processedColor * lighting;
+
+	//return the processed final color
+	OUT.color = processedColor;
+}

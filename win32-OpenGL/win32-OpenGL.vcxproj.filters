@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\MyGeometry">
+      <UniqueIdentifier>{a8f11e0a-77c4-4aaf-8fe1-4ec38ae2f925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyGeometry">
+      <UniqueIdentifier>{9ff09519-3b10-4a4a-b31e-d1740b4c39da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{1c60ed6a-c957-44ab-af1b-d963891c02e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{b4280bed-9bf4-4202-81da-7c64b66afb79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{837c8f9a-4833-47ee-886d-adc6bebb7b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{a05dc6e3-8d17-4847-a244-a9230d36f387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{fe850bff-73c6-4b93-9dea-390c3f3c22e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{50acbe3c-03fc-4b33-8881-b9e808b90cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{fc9ad3d7-544d-4853-b3b7-598bb681dd70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{6b11832d-a2aa-427a-93eb-d297e61e9af5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\File">
+      <UniqueIdentifier>{6468eb2e-4615-473a-bfe6-fa3df59099d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File">
+      <UniqueIdentifier>{3d5b4384-e31b-4093-8b73-753f54d8a91e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ErrorHandling">
+      <UniqueIdentifier>{949ec58a-4221-4184-94c7-bc7ac18fa62c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ErrorHandling">
+      <UniqueIdentifier>{b82833dd-2d13-4c34-bdf8-c6e1868602a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{066bf674-e844-451c-b43a-1794ab886eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{0ad8faa8-3930-45cb-88e5-a14395a57fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows">
+      <UniqueIdentifier>{83d403e7-40e6-4fa6-a179-4c4b99344fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows">
+      <UniqueIdentifier>{e78e03ae-edfb-4699-8f57-592b0d93d482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MathLibrary">
+      <UniqueIdentifier>{951f0f73-7c4f-45b6-bd3e-6d1efc599a5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MathLibrary">
+      <UniqueIdentifier>{0f6df10a-4ace-4734-8d1b-11691737378c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\GeometryBuilder">
+      <UniqueIdentifier>{37819c7b-6bf9-413d-8c74-a79d5def4c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\GeometryBuilder">
+      <UniqueIdentifier>{6b0d6c9d-7b46-4a31-a931-e4203fc66938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameState">
+      <UniqueIdentifier>{a01b95fd-cff7-4537-bd7b-c70d5f206925}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameManager">
+      <UniqueIdentifier>{d7ff7590-59ec-42ae-b5df-462492b1a9a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameState">
+      <UniqueIdentifier>{59e5ccef-78f0-43cc-9c90-08a2e784c698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameManager">
+      <UniqueIdentifier>{908b305b-3396-4a5d-8f77-46ac88d6a290}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MyGeometry\MyGeometryApp">
+      <UniqueIdentifier>{ede1f6ea-8d0d-4028-885b-4ebaf22235e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MyGeometry\MyGeometryGM">
+      <UniqueIdentifier>{7949dacd-fc6c-4ecb-bd4d-b7580e961c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MyGeometry\MyGeometryOM">
+      <UniqueIdentifier>{ad929d45-fee6-417f-b2ce-abc52e1073e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\GameObjectManager">
+      <UniqueIdentifier>{bca405ce-b375-468f-922f-620f841b1b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\GameObjectManager">
+      <UniqueIdentifier>{32cd0e28-acc3-4060-bc55-948edf212543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\GraphicsAPI">
+      <UniqueIdentifier>{a0eab78c-1b6f-48e1-860c-8c8140a5e58b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\GraphicsAPI">
+      <UniqueIdentifier>{1057a101-e9d3-4eba-b261-92982a680a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyGeometry\MyGeometryOM">
+      <UniqueIdentifier>{6629e75c-d651-4fcf-aaf3-72fb0a73390e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyGeometry\MyGeometryGM">
+      <UniqueIdentifier>{a58be826-2798-44d6-9ffd-6b95ac1b1895}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyGeometry\MyGeometryState">
+      <UniqueIdentifier>{defc6479-b570-42e8-96b1-d091df331a9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyGeometry\MyGeometryApp">
+      <UniqueIdentifier>{820e2cdf-9d81-4da3-b972-ca76f1904494}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MyGeometry\MyGeometryState">
+      <UniqueIdentifier>{c7d30607-28fe-4312-80ac-9a87011cc41b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FrameRate">
+      <UniqueIdentifier>{e7516c20-e496-4ab4-933c-af1f12ff3de5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FrameRate">
+      <UniqueIdentifier>{4cfaa369-269b-4da2-96af-c873e4efd661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{0f9306c9-7176-43f3-a09f-51a11c0aa06e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{218e5efd-d984-4c3c-966b-27d7246a6069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\File\TGALoader">
+      <UniqueIdentifier>{a4f87100-9120-4715-b342-494e4f0939f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\File\TGALoader">
+      <UniqueIdentifier>{8fda6b9d-95ad-4e0c-8ba7-593d3a9cfe3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{d3188108-21bd-4a49-8c1d-a38317d7c3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders\VertexShader">
+      <UniqueIdentifier>{64539728-0123-48f9-8229-71cb8e1d5dcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders\FragmentShader">
+      <UniqueIdentifier>{c83b08d0-10b3-4fed-bed2-5bec30b454f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Shaders">
+      <UniqueIdentifier>{ee5d7e36-6ea6-46ac-87ec-23c169b02767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\LookAt">
+      <UniqueIdentifier>{5001b4ea-88e3-4f9d-93bb-3ce8dac36338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LookAt">
+      <UniqueIdentifier>{3de8453c-a6b5-4549-9c5a-e680c7bfd7c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lighting">
+      <UniqueIdentifier>{76258aa7-b543-4f51-abd9-c01df1cccbc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting">
+      <UniqueIdentifier>{3d1c4bb3-8c03-4bf6-bd2b-86317d23ed89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders\UtilityShader">
+      <UniqueIdentifier>{16fb10c2-6097-4f33-850c-60689822cce7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Render">
+      <UniqueIdentifier>{c4e47acc-6321-4f2e-9ac8-3cd0f4fa6234}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Render">
+      <UniqueIdentifier>{f9f48eab-7007-4a58-a022-2eee60afd55f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Effects">
+      <UniqueIdentifier>{f3b082fd-5064-4134-b06e-a7c2628580ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Effects">
+      <UniqueIdentifier>{f5b5b145-f86c-4413-97e5-0ad1dd1d368e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windows\Console">
+      <UniqueIdentifier>{d98ec35b-f80f-462c-b452-f45a49424bdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Windows\Console">
+      <UniqueIdentifier>{c0a3132f-284d-4d3f-9c56-2b2e3cbd8a6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play">
+      <UniqueIdentifier>{b6a457e7-82dc-4e27-9a90-d2e3d25fec49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play\FuzzyLogic">
+      <UniqueIdentifier>{4c85c75d-74a0-4436-a377-cf52c4276490}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play\Puzzle">
+      <UniqueIdentifier>{eef4f7f8-4869-4fcf-920b-ef375daf841a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play">
+      <UniqueIdentifier>{660d81f4-a79b-4898-8a5e-dac5cfb30594}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play\Puzzle">
+      <UniqueIdentifier>{3e1bd61c-49ac-4123-bd29-056f7874b8cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play\FuzzyLogic">
+      <UniqueIdentifier>{5891e36e-037a-4d1f-ace1-918ecd75b59b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play\Board">
+      <UniqueIdentifier>{1e466e09-32cf-45c3-bb3a-edc27e39d4ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play\MotionPlanning">
+      <UniqueIdentifier>{24983b0a-3ca0-425d-bef9-021d941de25a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Play\TicTacToe">
+      <UniqueIdentifier>{b3399d8a-39ea-4aa8-b43c-1bb72b19a3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play\Board">
+      <UniqueIdentifier>{3ebf7f5a-a2f3-4778-aba3-6d050846d9c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play\MotionPlanning">
+      <UniqueIdentifier>{346156d7-8af4-4b82-a5ff-59c4d5f54813}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Play\TicTacToe">
+      <UniqueIdentifier>{63e6c665-567e-4588-99c1-eb15e6201c11}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Math\Mtx44.cpp">
+      <Filter>Source Files\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MyMath.cpp">
+      <Filter>Source Files\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>Source Files\MathLibrary</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Utility.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\MatrixStack.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\Camera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="File\FileIO.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="File\GeometryParameterContainer.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorHandling\MessageBox.cpp">
+      <Filter>Source Files\ErrorHandling</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GraphicsObj.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\PhysicsObj.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObj.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\MeshObj.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\SphereBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\BaseGeometryBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\Win32Application.cpp">
+      <Filter>Source Files\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameManager.cpp">
+      <Filter>Source Files\Game\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameState.cpp">
+      <Filter>Source Files\Game\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GraphicsOpenGL.cpp">
+      <Filter>Source Files\Graphics\GraphicsAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GraphicsContainer.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObjectManager.cpp">
+      <Filter>Source Files\Game\GameObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\GraphicsInterface.cpp">
+      <Filter>Source Files\Graphics\GraphicsAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGeometryOM.cpp">
+      <Filter>Source Files\MyGeometry\MyGeometryOM</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGeometryGM.cpp">
+      <Filter>Source Files\MyGeometry\MyGeometryGM</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGeometryState.cpp">
+      <Filter>Source Files\MyGeometry\MyGeometryState</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGeometryApp.cpp">
+      <Filter>Source Files\MyGeometry\MyGeometryApp</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameRate\FrameRateController.cpp">
+      <Filter>Source Files\FrameRate</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\Grid2DBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\CubeBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\Polygon2DBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\CylinderBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\ConeBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\ComplexObjBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryBuilder\SatelliteBuilder.cpp">
+      <Filter>Source Files\Graphics\GeometryBuilder</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Win32Input.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\CollisionDetection.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\CollisionResponse.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="File\TGALoader.cpp">
+      <Filter>Source Files\File\TGALoader</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders\Shader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="File\CustomFileHandler.cpp">
+      <Filter>Source Files\File</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle\StressTestCode.cpp">
+      <Filter>Source Files\Play\Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle\ExpandCurrentState.cpp">
+      <Filter>Source Files\Play\Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Puzzle\NPuzzle.cpp">
+      <Filter>Source Files\Play\Puzzle</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\MyGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="LookAt\LookAt.cpp">
+      <Filter>Source Files\LookAt</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\Light.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\DirectionalLight.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\SpotLight.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\OmniLight.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\ImageObj.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Lighting\Material.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderManager.cpp">
+      <Filter>Source Files\Graphics\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\Effects.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\LightingEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\NoEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\ReflectiveEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\RefractiveEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\FresnelEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\RefractiveChromDispEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\DualParaboloidEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects\DualParaboloidReflectiveEffect.cpp">
+      <Filter>Source Files\Graphics\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Windows\Console.cpp">
+      <Filter>Source Files\Windows\Console</Filter>
+    </ClCompile>
+    <ClCompile Include="FuzzyLogic\FuzzyLogicMissile.cpp">
+      <Filter>Source Files\Play\FuzzyLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="FuzzyLogic\MissileGameDriver.cpp">
+      <Filter>Source Files\Play\FuzzyLogic</Filter>
+    </ClCompile>
+    <ClCompile Include="Board\Board.cpp">
+      <Filter>Source Files\Play\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPlanning_Project\Character.cpp">
+      <Filter>Source Files\Play\MotionPlanning</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPlanning_Project\Graph.cpp">
+      <Filter>Source Files\Play\MotionPlanning</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPlanning_Project\LevelBuild.cpp">
+      <Filter>Source Files\Play\MotionPlanning</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPlanning_Project\MathUtility.cpp">
+      <Filter>Source Files\Play\MotionPlanning</Filter>
+    </ClCompile>
+    <ClCompile Include="MotionPlanning_Project\MotionPlanning.cpp">
+      <Filter>Source Files\Play\MotionPlanning</Filter>
+    </ClCompile>
+    <ClCompile Include="TicTacToe\MiniMaxSearch.cpp">
+      <Filter>Source Files\Play\TicTacToe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Math\Mtx44.h">
+      <Filter>Header Files\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MyMath.h">
+      <Filter>Header Files\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>Header Files\MathLibrary</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Utility.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\MatrixStack.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\Camera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="File\FileIO.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="File\GeometryParameterContainer.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorHandling\MessageBox.h">
+      <Filter>Header Files\ErrorHandling</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsObj.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsObj.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObj.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\MeshObj.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\SphereBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\BaseGeometryBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\Win32Application.h">
+      <Filter>Header Files\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGeometryOM.h">
+      <Filter>Header Files\MyGeometry\MyGeometryOM</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameManager.h">
+      <Filter>Header Files\Game\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObjectManager.h">
+      <Filter>Header Files\Game\GameObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameState.h">
+      <Filter>Header Files\Game\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsOpenGL.h">
+      <Filter>Header Files\Graphics\GraphicsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsContainer.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\GraphicsInterface.h">
+      <Filter>Header Files\Graphics\GraphicsAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGeometryGM.h">
+      <Filter>Header Files\MyGeometry\MyGeometryGM</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGeometryState.h">
+      <Filter>Header Files\MyGeometry\MyGeometryState</Filter>
+    </ClInclude>
+    <ClInclude Include="MyGeometryApp.h">
+      <Filter>Header Files\MyGeometry\MyGeometryApp</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameRate\FrameRateController.h">
+      <Filter>Header Files\FrameRate</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\Grid2DBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\CubeBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\Polygon2DBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\CylinderBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\ConeBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\ComplexObjBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryBuilder\SatelliteBuilder.h">
+      <Filter>Header Files\Graphics\GeometryBuilder</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Win32Input.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionDetection.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionResponse.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="File\TGALoader.h">
+      <Filter>Header Files\File\TGALoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\Shader.h">
+      <Filter>Header Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="File\CustomFileHandler.h">
+      <Filter>Header Files\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Puzzle\NPuzzle.h">
+      <Filter>Header Files\Play\Puzzle</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files\MyGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="LookAt\LookAt.h">
+      <Filter>Header Files\LookAt</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\DirectionalLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\Light.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\SpotLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\OmniLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\ImageObj.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Lighting\Material.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderManager.h">
+      <Filter>Header Files\Graphics\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\Effects.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\LightingEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\NoEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\ReflectiveEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\RefractiveEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\FresnelEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\RefractiveChromDispEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\DualParaboloidEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects\DualParaboloidReflectiveEffect.h">
+      <Filter>Header Files\Graphics\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Windows\Console.h">
+      <Filter>Header Files\Windows\Console</Filter>
+    </ClInclude>
+    <ClInclude Include="FuzzyLogic\FuzzyLogicMissile.h">
+      <Filter>Header Files\Play\FuzzyLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="FuzzyLogic\MissileGameDriver.h">
+      <Filter>Header Files\Play\FuzzyLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="Board\Board.h">
+      <Filter>Header Files\Play\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPlanning_Project\Character.h">
+      <Filter>Header Files\Play\MotionPlanning</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPlanning_Project\Graph.h">
+      <Filter>Header Files\Play\MotionPlanning</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPlanning_Project\LevelBuild.h">
+      <Filter>Header Files\Play\MotionPlanning</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPlanning_Project\MathUtility.h">
+      <Filter>Header Files\Play\MotionPlanning</Filter>
+    </ClInclude>
+    <ClInclude Include="MotionPlanning_Project\MotionPlanning.h">
+      <Filter>Header Files\Play\MotionPlanning</Filter>
+    </ClInclude>
+    <ClInclude Include="TicTacToe\MiniMaxSearch.h">
+      <Filter>Header Files\Play\TicTacToe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Utility\Utility.inl">
+      <Filter>Source Files\Utility</Filter>
+    </None>
+    <None Include="Shaders\reflectiveShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\reflectiveShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\refractiveShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\refractiveShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\lightingUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\generalUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\refractionUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\reflectionUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\shader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\lightingShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\shader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\fresnelShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\fresnelShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\fresnelUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\refractionChromDispShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\refractionChromDispShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\chromaticDispersionUtilityShader.cg">
+      <Filter>Source Files\Shaders\UtilityShader</Filter>
+    </None>
+    <None Include="Shaders\dualParaboloidGenerationShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\dualParaboloidReflectiveShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\dualParaboloidReflectiveShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\dualParaboloidLightingShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\reflectiveShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\reflectiveShaderR.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\refractiveShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\refractiveShaderR.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\refractionChromDispShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\refractionChromDispShaderR.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\fresnelShader.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+    <None Include="Shaders\fresnelShaderR.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\lightingShaderR.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\lightingShader.f.cg">
+      <Filter>Source Files\Shaders\FragmentShader</Filter>
+    </None>
+    <None Include="Shaders\lightingShaderR.v.cg">
+      <Filter>Source Files\Shaders\VertexShader</Filter>
+    </None>
+  </ItemGroup>
+</Project>

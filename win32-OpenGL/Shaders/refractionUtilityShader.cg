@@ -1,0 +1,85 @@
+/******************************************************************************/
+/*!
+\file refractionUtilityShader.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 12/02/2012
+\brief
+This is the Cg shader that contains reusable code for refraction computations
+Command Line Compilation: 
+cgc refractionUtilityShader.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the transmitted vector due to refraction.
+This is based on Snell's Law.
+
+\param I
+	the incident vector
+\param N
+	the normal of the vertex
+\param etaRatio
+	the index of refraction
+
+\return float4
+	the transmitted vector due to refraction
+*/
+/****************************************************************************************/
+float3 RefractCustom( float3 I, float3 N, float etaRatio )
+{ 
+	float cosI = dot( -I, N );
+ 
+	float cosT2 = 1.0F - etaRatio * etaRatio * ( 1.0F - cosI * cosI );
+ 
+	float3 T = etaRatio * I + ( ( etaRatio * cosI - sqrt( abs( cosT2 ) ) ) * N );
+ 
+	return T * (float3)( cosT2 > 0 ); 
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the transmitted interpolated color due to refraction.
+
+\param cubeMapTexId
+	the cube map texture id
+\param transmittedVec
+	the transmitted vector due to refraction
+\param transmittance
+	the transmittance factor
+\param decalColor
+	the color for blending
+
+\return float4
+	the transmitted interpolated color due to refraction
+*/
+/****************************************************************************************/
+float4 ComputeInterpolatedRefractedColor( samplerCUBE cubeMapTexId, float3 transmittedVec, float transmittance, float4 decalColor )
+{
+	float4 processedColor = decalColor;
+
+	//compute for the refractive color from the cube map
+	float4 refractedColor = texCUBE( cubeMapTexId, transmittedVec );	
+	//apply the refractive color
+	if ( refractedColor.x > 0 || refractedColor.y > 0 || refractedColor.z > 0 )
+	{
+		//the Lerp function performs linear interpolation
+		processedColor = lerp( decalColor, refractedColor, transmittance );
+	}
+
+	return processedColor;
+}

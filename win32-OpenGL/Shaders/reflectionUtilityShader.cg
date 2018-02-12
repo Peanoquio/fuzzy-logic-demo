@@ -1,0 +1,120 @@
+/******************************************************************************/
+/*!
+\file reflectionUtilityShader.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 12/02/2012
+\brief
+This is the Cg shader that contains reusable code for reflection computations
+Command Line Compilation: 
+cgc reflectionUtilityShader.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the reflected interpolated color due to reflection.
+
+\param cubeMapTexId
+	the cube map texture id
+\param reflectionVec
+	the reflected vector due to reflection
+\param reflectivity
+	the reflectivity factor
+\param decalColor
+	the color for blending
+
+\return float4
+	the reflected interpolated color due to reflection
+*/
+/****************************************************************************************/
+float4 ComputeInterpolatedReflectedColor( samplerCUBE cubeMapTexId, float3 reflectionVec, float reflectivity, float4 decalColor )
+{
+	float4 processedColor = decalColor;
+
+	//compute for the reflective color from the cube map
+	float4 reflectedColor = texCUBE( cubeMapTexId, reflectionVec );	
+	//apply the reflective color
+	if ( reflectedColor.x > 0 || reflectedColor.y > 0 || reflectedColor.z > 0 )
+	{
+		//the Lerp function performs linear interpolation
+		processedColor = lerp( decalColor, reflectedColor, reflectivity );
+	}
+	//processedColor = float4( reflectionVec, 0 );
+
+	return processedColor;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the reflected interpolated color due to reflection for dual paraboloid map
+
+\param frontMapTexId
+	the front map texture id
+\param backMapTexId
+	the back map texture id
+\param reflectionVec
+	the reflected vector due to reflection
+\param reflectivity
+	the reflectivity factor
+\param decalColor
+	the color for blending
+
+\return float4
+	the reflected interpolated color due to reflection for dual paraboloid map
+*/
+/****************************************************************************************/
+float4 ComputeInterpolatedReflectedColorForDualParaboloid( sampler2D frontMapTexId, sampler2D backMapTexId, 
+	float3 reflectionVec, float reflectivity, float4 decalColor )
+{
+	float4 reflectedColor;
+	float4 processedColor = decalColor;
+
+	float3 normalizedReflectionVec = normalize( reflectionVec );
+
+	if ( normalizedReflectionVec.z > 0.0F )
+	{
+		// calculate the front paraboloid map texture coordinates
+		float2 front;
+		front = normalizedReflectionVec.xy / ( normalizedReflectionVec.z + 1 );
+		//bias and scale to correctly sample a texture
+		//front = 0.5F * front.xy + 0.5F; 
+		front.x = 0.5F * -front.x + 0.5F; 
+		front.y = 0.5F * front.y + 0.5F; 
+		//sample the front paraboloid map
+		reflectedColor = tex2D( backMapTexId, front );    
+	}
+	else
+	{
+		// calculate the back paraboloid map texture coordinates
+		float2 back;
+		back = normalizedReflectionVec.xy / ( 1 - normalizedReflectionVec.z );
+		//bias and scale to correctly sample a texture
+		back = 0.5F * back.xy + 0.5F; 
+		//sample the back paraboloid map
+		reflectedColor = tex2D( frontMapTexId, back );    
+	}	
+
+	//apply the reflective color
+	if ( reflectedColor.x > 0 || reflectedColor.y > 0 || reflectedColor.z > 0 )
+	{
+		//the Lerp function performs linear interpolation
+		processedColor = lerp( decalColor, reflectedColor, reflectivity );
+	}
+	//processedColor = float4( reflectionVec, 0 );
+
+	return processedColor;
+}

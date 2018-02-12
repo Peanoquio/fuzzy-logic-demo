@@ -1,0 +1,144 @@
+/******************************************************************************/
+/*!
+\file dualParaboloidReflectiveShaderR.v.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 22/02/2012
+\brief
+This is the Cg reflective vertex shader for the dual paraboloid map
+Command Line Compilation: 
+cgc dualParaboloidReflectiveShaderR.v.cg -entry main -profile gp4vp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+struct vertexShaderInput
+{
+	/*
+	float3 position : POSITION;
+	float4 color : COLOR0;
+	float2 texCoord : TEXCOORD0;
+	float4 projTexCoord : TEXCOORD1;
+
+	float3 normal : NORMAL;
+	*/
+
+	//for ATI
+	float3 position : ATTR0;
+	float4 color : ATTR3;
+	float2 texCoord : ATTR8;
+	float4 projTexCoord : ATTR9;
+	float3 normal : ATTR2;
+	float3 objPosition : ATTR10;
+	float3 reflectionVec : ATTR11;
+};
+
+struct vertexShaderOutput
+{
+	float4 position : POSITION;
+	float4 color : COLOR0;
+	float2 texCoord : TEXCOORD0;
+	float4 projTexCoord : TEXCOORD1;
+	float3 normal : TEXCOORD2;
+	float3 objPosition : TEXCOORD3;
+	float3 reflectionVec : TEXCOORD4;
+};
+
+
+/****************************************************************************************/
+/*!
+vertex shader main entry point
+
+\param IN
+	the vertex shader input
+
+\param modelWorldMatrix
+	concatenated model to world matrix
+	uniform - shader is going to send this from the application
+
+\param modelWorldITMatrix
+	concatenated model to world inverse transpose matrix
+	uniform - shader is going to send this from the application
+
+\param modelViewMatrix
+	concatenated model-view matrix
+	uniform - shader is going to send this from the application
+
+\param modelViewITMatrix
+	concatenated model-view inverse transpose matrix
+	uniform - shader is going to send this from the application
+	
+\param modelViewProjMatrix
+	concatenated model-view-projection matrix
+	uniform - shader is going to send this from the application
+
+\param textureMatrix
+	concatenated texture generation matrix
+	uniform - shader is going to send this from the application
+	
+\return vertexShaderOutput
+	the vertex shader output
+
+*/
+/****************************************************************************************/
+vertexShaderOutput main ( vertexShaderInput IN, 
+	uniform float4x4 modelWorldMatrix, uniform float4x4 modelWorldITMatrix, 
+	uniform float4x4 modelViewMatrix, uniform float4x4 modelViewITMatrix,
+	uniform float4x4 mvpMatrix, uniform float4x4 textureMatrix,
+	uniform float3 eyePosition )
+{ 
+	vertexShaderOutput OUT;	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//use the model-view-projection matrix for transforming the vertex position	
+	OUT.position = mul( mvpMatrix, float4( IN.position, 1 ) ); 
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//transform the position in view space for the fragment shader
+	float3 viewSpacePos = mul( modelViewMatrix, float4( IN.position, 1 ) ).xyz;	
+	OUT.objPosition = viewSpacePos;
+
+	//transform the normal in view space for the fragment shader
+	//should use inverse transpose of the model view matrix if model matrix has scale
+	float3 viewSpaceNormal = mul( (float3x3)modelViewITMatrix, IN.normal );	
+	OUT.normal = viewSpaceNormal;	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//compute the incident and reflected vectors
+	/*
+	//incident vector is vertex position in view space - camera position in view space
+	//since camera is the view space, its value is 0	
+	const float3 EYEPOS_VIEWSPACE = float3( 0.0F, 0.0F, 0.0F );
+	float3 viewSpaceIncidentVec = viewSpacePos - EYEPOS_VIEWSPACE;
+	//compute for the reflection
+	OUT.reflectionVec = reflect( viewSpaceIncidentVec, normalize( viewSpaceNormal ) );
+	*/
+
+	float3 worldSpacePos = mul( modelWorldMatrix, float4( IN.position, 1 ) ).xyz;
+	float3 worldSpaceNormal = mul( (float3x3)modelWorldITMatrix, normalize( IN.normal ) );
+	float3 worldSpaceIncidentVec = worldSpacePos - eyePosition;
+
+	//compute for the reflection
+	OUT.reflectionVec = reflect( worldSpaceIncidentVec, normalize( worldSpaceNormal ) );
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//compute the texture coordinates for projective texturing	
+	OUT.projTexCoord = mul( textureMatrix, float4( IN.position , 1 ) );
+
+	//standard texturing
+	OUT.texCoord = IN.texCoord;
+
+	//color
+	OUT.color = IN.color;	
+	
+	return OUT;
+}

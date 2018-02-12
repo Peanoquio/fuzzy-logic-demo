@@ -1,0 +1,69 @@
+/******************************************************************************/
+/*!
+\file shader.f.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 25/01/2012
+\brief
+This is the Cg fragment shader
+Command Line Compilation: 
+cgc shader.f.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+#include "generalUtilityShader.cg";
+
+struct fragmentShaderInput
+{
+    float4 position : POSITION;
+    float4 color : COLOR0;
+    float2 texCoord : TEXCOORD0;
+    float4 projTexCoord : TEXCOORD1;
+};
+
+
+struct fragmentShaderOutput
+{
+    float4 color : COLOR0;
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+fragment shader main entry point
+
+\param IN
+	the fragment shader input	
+\param OUT
+	the fragment shader output	
+
+\param texId
+	the texture Id
+	uniform - shader is going to send this from the application
+\param projTexId
+	the projection texture Id
+	uniform - shader is going to send this from the application
+*/
+/****************************************************************************************/
+void main( fragmentShaderInput IN, out fragmentShaderOutput OUT, 
+			uniform sampler2D texId, uniform sampler2D projTexId )
+{
+    //compute for the object texturing
+	float4 texVal = tex2D( texId, IN.texCoord );
+
+    //compute for the projective texturing value
+	float4 projTexVal = tex2Dproj( projTexId, IN.projTexCoord );	
+
+	float4 processedColor = ProcessTextureColor( IN.color, texVal, projTexVal );
+
+	//return the processed final color
+	OUT.color = processedColor;
+}

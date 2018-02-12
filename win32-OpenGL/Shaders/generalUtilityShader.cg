@@ -1,0 +1,137 @@
+/******************************************************************************/
+/*!
+\file generalUtilityShader.cg
+\author Oliver Ryan Chong
+\par email: oliver.chong\@digipen.edu
+\par oliver.chong 900863
+\par Course: CS1050
+\par Project #03
+\date 12/02/2012
+\brief
+This is the Cg shader that contains reusable code for general purpose use
+Command Line Compilation: 
+cgc generalUtilityShader.cg -entry main -profile gp4fp
+
+Copyright (C) 2011 DigiPen Institute of Technology Singapore
+*/
+/******************************************************************************/
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the combined basic color, texture and projective texture
+
+\param basicColorVal
+	the basic color value
+\param textureVal
+	the texture value
+\param projectiveTextureVal
+	the projective texture value
+
+\return float4
+	the combined color value
+*/
+/****************************************************************************************/
+float4 ProcessTextureColor( float4 basicColorVal, float4 textureVal, float4 projectiveTextureVal )
+{
+	float4 processedColor = basicColorVal;
+	
+	bool hasTexture = false;
+    if ( textureVal.x > 0.0F || textureVal.y > 0.0F || textureVal.z > 0.0F )
+	{
+        hasTexture = true;
+    }
+
+	bool hasProjTexture = false;
+    if ( projectiveTextureVal.x > 0.0F || projectiveTextureVal.y > 0.0F || projectiveTextureVal.z > 0.0F )
+	{
+        hasProjTexture = true;
+    }
+	
+	//validate if the texture being passed contains values	
+	if ( hasTexture == true && hasProjTexture == true )
+	{
+        processedColor = textureVal * projectiveTextureVal;
+    }
+	else if ( hasTexture == true && hasProjTexture == false )
+	{
+        processedColor = textureVal;
+    }
+	else if ( hasTexture == false && hasProjTexture == true )
+	{
+        processedColor = projectiveTextureVal;
+    }
+	else
+	{
+		if ( basicColorVal.x > 0 || basicColorVal.y > 0 || basicColorVal.z > 0 )
+		{
+			processedColor = basicColorVal;
+			//processedColor = float4( 0, 0, 0, 0 );
+		}
+    }
+
+	return processedColor;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/****************************************************************************************/
+/*!
+This function computes for the combined basic color, texture and projective texture
+
+\param basicColorVal
+	the basic color value
+\param textureVal
+	the texture value
+\param projectiveTextureVal
+	the projective texture value
+\param textureFlag
+	the texture flag
+
+\return float4
+	the combined color value
+*/
+/****************************************************************************************/
+float4 ProcessTextureColor( float4 basicColorVal, float4 textureVal, float4 projectiveTextureVal, int textureFlag )
+{
+	float4 processedColor = basicColorVal;
+	
+	bool hasTexture = false;
+    if ( textureFlag > 0 )
+	{
+		hasTexture = true;
+	}
+
+	bool hasProjTexture = false;
+    if ( projectiveTextureVal.x > 0.0F || projectiveTextureVal.y > 0.0F || projectiveTextureVal.z > 0.0F )
+	{
+        hasProjTexture = true;
+    }
+	
+	//validate if the texture being passed contains values	
+	if ( hasTexture == true && hasProjTexture == true )
+	{
+        processedColor = textureVal * projectiveTextureVal;
+    }
+	else if ( hasTexture == true && hasProjTexture == false )
+	{
+        processedColor = textureVal;
+    }
+	else if ( hasTexture == false && hasProjTexture == true )
+	{
+        processedColor = projectiveTextureVal;
+    }
+	else
+	{
+		//processedColor = textureVal;
+		processedColor = basicColorVal;
+    }
+
+	return processedColor;
+}
